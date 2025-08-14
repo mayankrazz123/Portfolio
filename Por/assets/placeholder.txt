@@ -1,0 +1,45 @@
+# Assets Directory
+
+This directory should contain:
+
+## Images
+- hero-image.jpg (Professional headshot for hero section)
+- about-image.jpg (About section image)
+- project1.jpg (E-commerce platform screenshot)
+- project2.jpg (Task management app screenshot)
+- project3.jpg (Weather dashboard screenshot)
+- project4.jpg (Portfolio website screenshot)
+- client1.jpg (Testimonial client photo - Sarah Johnson)
+- client2.jpg (Testimonial client photo - Michael Chen)
+- client3.jpg (Testimonial client photo - Emily Rodriguez)
+- blog1.jpg (JavaScript frameworks article image)
+- blog2.jpg (Web performance optimization article image)
+- blog3.jpg (CSS Grid and Flexbox article image)
+
+## Documents
+- resume.pdf (Your resume file)
+
+## Videos
+- hero-bg.mp4 (Optional: Background video for hero section - subtle, professional)
+
+## Additional Assets Needed
+- Professional headshots for testimonial clients
+- High-quality project screenshots
+- Blog article featured images
+- Company/client logos (optional)
+
+## Recommended Image Sizes
+- Hero image: 400x400px (square, high quality)
+- About image: 300x300px (square)
+- Project images: 600x400px (landscape, 3:2 ratio)
+
+## Image Sources
+You can use:
+- Your own photos and project screenshots
+- Unsplash.com for professional stock photos
+- Placeholder services like picsum.photos for testing
+
+## Example placeholder URLs for testing:
+- Hero: https://picsum.photos/400/400?random=1
+- About: https://picsum.photos/300/300?random=2
+- Projects: https://picsum.photos/600/400?random=3,4,5,6
