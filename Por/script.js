@@ -187,35 +187,110 @@ function displayFormErrors(errors) {
     });
 }
 
+// Initialize EmailJS
+function initEmailJS() {
+    // Initialize EmailJS with your public key
+    emailjs.init("7AH5YRqEX4YhaIa7X");
+}
+
 function handleFormSubmit(e) {
     e.preventDefault();
-    
+
     const formData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         message: document.getElementById('message').value
     };
-    
+
     const errors = validateForm(formData);
-    
+
     if (Object.keys(errors).length > 0) {
         displayFormErrors(errors);
         return;
     }
-    
+
     // Clear errors
     displayFormErrors({});
-    
+
     // Show loading state
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     submitBtn.classList.add('loading');
-    
-    // Simulate form submission (replace with actual form submission logic)
+    submitBtn.disabled = true;
+
+    // Send email using EmailJS
+    sendEmail(formData, submitBtn);
+}
+
+function sendEmail(formData, submitBtn) {
+    // EmailJS service configuration
+    const serviceID = 'service_0qtfhd8';
+    const templateID = 'template_dm2h52a';
+
+    // Template parameters
+    const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        to_email: 'mayankrazzanand@gmail.com',
+        reply_to: formData.email
+    };
+
+    emailjs.send(serviceID, templateID, templateParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+
+            // Success feedback
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+
+            // Show success message
+            showNotification('Thank you for your message! I\'ll get back to you soon.', 'success');
+
+            // Reset form
+            contactForm.reset();
+
+        }, function(error) {
+            console.log('FAILED...', error);
+
+            // Error feedback
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+
+            // Show error message
+            showNotification('Sorry, there was an error sending your message. Please try again or contact me directly.', 'error');
+        });
+}
+
+// Notification system
+function showNotification(message, type) {
+    // Remove existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+            <span>${message}</span>
+            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+
+    // Add to page
+    document.body.appendChild(notification);
+
+    // Auto remove after 5 seconds
     setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        alert('Thank you for your message! I\'ll get back to you soon.');
-        contactForm.reset();
-    }, 2000);
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
 }
 
 
@@ -362,6 +437,9 @@ function initParticles() {
 function init() {
     // Initialize theme
     initTheme();
+
+    // Initialize EmailJS
+    initEmailJS();
 
     // Initialize smooth scrolling
     initSmoothScrolling();
